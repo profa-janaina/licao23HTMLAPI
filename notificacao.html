@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Notificação</title>
+</head>
+<body>
+    <h1>Exemplo de Notificação com HTML5</h1>
+
+    <button onclick="notifyMe()">Ativar Notificação</button>
+
+    <script>
+        function notifyMe() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then((permission) => {
+                        // Se a permissão for concedida, enviar a notificação
+                        if (permission === "granted") {
+                            new Notification("Olá! Isso é uma notificação.");
+                        } else {
+                            alert("Permissão para notificações não foi  concedida.");
+                        }
+                })
+            } else {
+            alert("Seu navegador não suporta notificações.");
+            }
+        }
+
+    </script>
+</body>
+</html>

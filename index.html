@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML API</title>
+</head>
+<body>
+    <h1>API de armazenamento local</h1>
+    <h2>local storage e session Storage</h2>
+    <p>O objeto localStorage armazena os dados sem data de expiração. Os dados não serão excluídos quando o navegador for fechado.</p>
+
+    <p>O objeto sessionStorage armazena os dados para apenas uma sessão. Os dados são deletados quando o usuário fecha a aba específica do navegador.</p>
+
+    <label for="nome">Digite seu nome</label>
+    <input type="text" name="nome" id="nome">
+    <br><br>
+    <label for="nome">Digite um número</label>
+    <input type="number" name="numero" id="numero">
+    <br>
+    <button onclick="armazenar()">Enviar</button>
+    <br>
+    <p>Valor armazenado localmente: <span id="nome_local"></span></p>
+    <p>Valor armazenado por sessão: <span id="numero_sessao"></span></p>
+
+    <script>
+        if (localStorage.user_name) {
+            document.getElementById("nome_local").innerText = localStorage.user_name            
+            document.getElementById("numero_sessao").innerText = sessionStorage.user_number            
+        } 
+
+        function armazenar(nome_usuario) {            
+            nome_usuario = document.getElementById("nome").value;
+            numero_usuario = document.getElementById("numero").value;  
+
+            localStorage.setItem("user_name", nome_usuario)
+            sessionStorage.setItem("user_number", numero_usuario) 
+
+            document.getElementById("nome_local").innerText = localStorage.user_name
+            document.getElementById("numero_sessao").innerText = sessionStorage.user_number
+        }
+
+        
+
+    </script>
+</body>
+</html>

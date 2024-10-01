@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização</title>
+</head>
+<body>
+    <h1>Geolocalização</h1>
+    <p>Permite acessar a localização geográfica do dispositivo do usuário.</p>
+    <br>
+    <h4>Vamos descobrir a sua posição atual?</h4>
+    <button onclick="getLocation()">Descobrir posição</button>
+    <p id="coordenadas"></p>
+    <script>
+        const posicao = document.getElementById("coordenadas");
+        
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            posicao.innerHTML = "Geolocation não é suportada pelo navegador.";
+          }          
+        }
+        
+        function showPosition(position) {        
+          posicao.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+        }
+        
+        </script>
+</body>
+</html>

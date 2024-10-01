@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização e Canvas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+        #info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Geolocalização e Canvas</h1>
+    <p>Clique no botão para obter sua localização e desenhar no Canvas:</p>
+    <button id="getLocation">Obter Localização</button>
+    <canvas id="locationCanvas" width="500" height="300"></canvas>
+    <div id="info"></div>
+
+    <script>
+        const canvas = document.getElementById('locationCanvas');
+        const ctx = canvas.getContext('2d');
+        const infoDiv = document.getElementById('info');
+        const getLocationButton = document.getElementById('getLocation');
+
+        // Função para desenhar as coordenadas no Canvas
+        function drawLocation(latitude, longitude) {
+            // Limpa o canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Define o texto com as coordenadas
+            const message = `Latitude: ${latitude.toFixed(2)}, Longitude: ${longitude.toFixed(2)}`;
+
+            // Define estilo e fonte
+            ctx.font = "20px Arial";
+            ctx.fillStyle = "black";
+            ctx.textAlign = "center";
+
+            // Desenha o texto no meio do canvas
+            ctx.fillText("Sua Localização Atual:", canvas.width / 2, canvas.height / 2 - 20);
+            ctx.fillText(message, canvas.width / 2, canvas.height / 2 + 20);
+        }
+
+        // Função de sucesso ao obter geolocalização
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Exibe as informações na div e no canvas
+            infoDiv.innerHTML = `<p>Latitude: ${latitude.toFixed(6)}</p><p>Longitude: ${longitude.toFixed(6)}</p>`;
+            drawLocation(latitude, longitude);
+        }
+
+        // Função de erro ao obter geolocalização
+        function error() {
+            infoDiv.innerHTML = "<p>Não foi possível obter sua localização.</p>";
+        }
+
+        // Ação ao clicar no botão
+        getLocationButton.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                infoDiv.innerHTML = "<p>Geolocalização não é suportada pelo seu navegador.</p>";
+            }
+        });
+    </script>
+
+</body>
+</html>
